@@ -4,6 +4,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetFullscreen(true);
     gui.setup();
     gui.add(Boxsize.setup("Box Size", 1, .5, 2));
     gui.add(lsc.setup("Star Color1", 1, .001, 1));
@@ -13,7 +14,7 @@ void ofApp::setup(){
 
       star.load("star.png");
     ofSetBackgroundColor(0);
-    ofSetFrameRate(60);
+    ofSetFrameRate(30);
     
 
     ofSetVerticalSync(true);
@@ -71,7 +72,7 @@ void ofApp::update(){
      forceP.z +=ofSignedNoise(time,noiseReadPos.z, noiseReadPos.x);
 
      
-     mybox[i].addAttractionForce(ofPoint(0, 0,0),300,.01);
+     mybox[i].addAttractionForce(ofPoint(0, 0,0),300,.0005);
      mybox[i].addForce(forceP);
      mybox[i].update();
  }
@@ -106,42 +107,44 @@ void ofApp::draw(){
         ofDrawGridPlane();
     ofPopMatrix();
     
-    ofPushMatrix();
-
     
+    
+    ofPushMatrix();
     ofSetColor(255, 255, 255, 100);
     
     ofTranslate(-400, 200,200);
     
-        ofRotateXDeg(rotationX);
-        ofRotateYDeg(rotationY);
+    ofRotateXDeg(rotationX);
+    ofRotateYDeg(rotationY);
     ofRotateZDeg(rotationZ);
-        ofDrawBox(0,0,0,30);
-        ofPopMatrix();
+    ofDrawBox(0,0,0,30);
+    ofPopMatrix();
     
-     ofPushMatrix();
+    
+    
+    ofPushMatrix();
     ofTranslate(-300, -300,10);
     ofRotateXDeg(rotationX * 0.5);
     ofRotateYDeg(rotationY * 0.5);
     ofRotateZDeg(rotationZ * 0.5);
-        ofDrawBox(0,0,0,80);
+    ofDrawBox(0,0,0,80);
     ofPopMatrix();
     
     
     ofPushMatrix();
     ofTranslate(500, 1300,400);
-    ofRotateXDeg((rotationX) * 2);
-    ofRotateYDeg((rotationY) * 2);
-    ofRotateZDeg((rotationZ) * 2);
+    ofRotateXDeg((rotationX) * .2);
+    ofRotateYDeg((rotationY) * .2);
+    ofRotateZDeg((rotationZ) * .2);
     ofDrawBox(0,0,0,50);
     ofPopMatrix();
     
     
     ofPushMatrix();
     ofTranslate(800, 1300,200);
-    ofRotateXDeg((rotationX) * 4);
-    ofRotateYDeg((rotationY) * 4);
-    ofRotateZDeg((rotationZ) * 4);
+    ofRotateXDeg((rotationX) * .4);
+    ofRotateYDeg((rotationY) * .4);
+    ofRotateZDeg((rotationZ) * .4);
     ofDrawBox(0,0,0,50);
     ofPopMatrix();
     
@@ -197,8 +200,13 @@ void ofApp::draw(){
     ofPopMatrix();
     
     
+//    ofMesh mesh;
+//    for(int i = 0; i <mybox.size(); i++){
+//        mesh.addVertex(mybox[i].pos);
+//    }
+//    glPointSize(4);
     
-
+    ofFill();
     for(int i = 0; i <12000; i++){
 
         
@@ -207,20 +215,23 @@ void ofApp::draw(){
         ofSetColor(ofRandom(180,240) * lsc   , ofRandom(182,200) * lsc2, 255 * lsc3);
 
         mybox[i].draw();
-        ofSetColor(255);
-        ofNoFill();
-
-        
-        ofTranslate(0, 0,0);
-        ofRotateZDeg(rotationZ);
-        ofDrawSphere(0,0, 0, 80 * Boxsize);
-
-        ofFill();
         ofPopMatrix();
 
-    
 
-           }
+    }
+    
+    ofNoFill();
+    
+    ofPushMatrix();
+    ofSetColor(255);
+    ofTranslate(0, 0,0);
+    ofRotateZDeg(rotationZ);
+    ofDrawSphere(0,0, 0, 80 * Boxsize);
+    
+    ofFill();
+    ofPopMatrix();
+
+    
     if (star1 == 1){
         
     
@@ -278,7 +289,9 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    for(int i = 0; i < mybox.size();i++){
+        mybox[i].goToStart = true;
+    }
 }
 
 //--------------------------------------------------------------

@@ -17,8 +17,10 @@ void Box::setup(ofPoint pos_){
 
     
     pos = pos_;
-    vel.set(ofRandom(-1,1), ofRandom(-1,1),0);
+    vel.set(ofRandom(-1,1), ofRandom(-1,1),ofRandom(0,1));
     
+    noiseRandomOffset.set(ofRandom(10), ofRandom(10), ofRandom(10));
+
     
 }
 
@@ -33,6 +35,8 @@ void Box::update(){
 
 
 
+
+
 void Box::draw(){
     
     float h;
@@ -42,6 +46,7 @@ void Box::draw(){
     h = 2;
     
     ofDrawBox(pos.x, pos.y, pos.z, h);
+    
     
 }
 
@@ -53,5 +58,5 @@ void Box::addAttractionForce(ofPoint _attraction,float _rad, float scale){
     ofPoint diff = _attraction - pos;
     if(diff.length() < _rad){
         addForce(diff*scale);
-    }
+            }
 }

@@ -26,9 +26,11 @@ class ofApp : public ofBaseApp{
     ofEasyCam cam;
     
     ofxPanel gui;
-    ofxFloatSlider BouncingRate;
-    ofxFloatSlider DepthX;
-    ofxFloatSlider BallSize;
+    ofxFloatSlider Boxsize;
+    ofxFloatSlider lsc;
+        ofxFloatSlider lsc2;
+          ofxFloatSlider lsc3;
+//    ofxFloatSlider BallSize;
     
     float x,y;
     float sinValue;
@@ -40,6 +42,19 @@ class ofApp : public ofBaseApp{
     
     ofImage star;
     
+    float rotationX;
+    float rotationY;
+    float rotationZ;
+    
+//    vector <ofPoint> constellation;
+    ofPoint constellation[20];
+    
+    int star1 = -1;
+    int star2 = 1;
+    
+    float stella1;
+    float stella2;
+    float stella3;
     
     
 };

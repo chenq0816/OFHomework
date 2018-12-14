@@ -10,6 +10,8 @@
 #define Box_hpp
 
 #include "ofMain.h"
+
+
 class Box{
     
     
@@ -19,6 +21,7 @@ public:
     void setup(ofPoint _pos);
     void update();
     void draw();
+
     
     void addForce(ofPoint force_);
     void addAttractionForce(ofPoint attraction_,float _rad, float scale);
@@ -28,7 +31,7 @@ public:
     ofPoint acc;
     ofPoint pos;
     
-    
+     ofPoint noiseRandomOffset;
     
     
 private:

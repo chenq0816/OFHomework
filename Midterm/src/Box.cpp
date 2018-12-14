@@ -11,25 +11,37 @@ Box::Box(){
     pos.set(0,0,0);
     vel.set(0,0,0);
     acc.set(0,0,0);
+    
 }
 
 void Box::setup(ofPoint pos_){
 
     
     pos = pos_;
-    vel.set(ofRandom(-1,1), ofRandom(-1,1),ofRandom(0,1));
+    vel.set(ofRandom(-.2,.2), ofRandom(-.2,.2),ofRandom(0,.2));
     
     noiseRandomOffset.set(ofRandom(10), ofRandom(10), ofRandom(10));
-
+    
+    startPos = pos_;
+    goToStart = false;
     
 }
 
 void Box::update(){
-
-    pos += vel;
-    vel += acc;
-     acc *= 0.0;
     
+    if(goToStart){
+        pos = .9 * pos + .1 *startPos;
+        // check distance between pos and startPos, set goToStart to false
+        float diff = (pos-startPos).length();
+        if(diff < 5){
+            goToStart = false;
+            
+        }
+    }else{
+        pos += vel;
+        vel += acc;
+        acc *= 0.0;
+    }
     
 }
 
@@ -42,8 +54,8 @@ void Box::draw(){
     float h;
     
 
-//    h = ofRandom(5,9) * (sin(ofGetElapsedTimef()) + 1.2);
-    h = 2;
+
+    h = 2.5;
     
     ofDrawBox(pos.x, pos.y, pos.z, h);
     
